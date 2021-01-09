@@ -1,0 +1,8 @@
+# .eslintignore
+# 忽略检测规则
+**/node_modules/*
+**/dist/*
+**/temp/*
+**/coverage/*
+!.eslintrc.js
+!.cz-config.js
