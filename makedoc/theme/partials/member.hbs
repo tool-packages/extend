@@ -1,0 +1,41 @@
+{{#unless hasOwnDocument}}
+
+{{#if name}}
+
+## {{#ifNamedAnchors}}<a id="{{anchor}}" name="{{this.anchor}}"></a> {{/ifNamedAnchors}}{{ escape name }}{{{badge}}}
+
+{{/if}}
+
+{{/unless}}
+
+{{#if signatures}}
+
+{{#each signatures}}
+
+{{> member.signature }}
+
+{{/each}}
+
+{{else}}
+
+{{#if hasGetterOrSetter}}
+
+{{> member.getterSetter}}
+
+{{else}}
+
+{{#if isReference}}
+
+{{> member.reference}}
+
+{{else}}
+
+{{> member.declaration}}
+
+{{/if}}
+
+{{/if}}
+
+{{/if}}
+
+___

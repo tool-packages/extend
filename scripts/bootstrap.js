@@ -140,12 +140,9 @@ export default {};
 # 不上传给npm的文件
 node_modules/
 src/
-docs/
-tests/
+__tests__/
 
-tsconfig.json
-.DS_Store
-.editorconfig
+api-extractor.json
 `.trim()
     );
   }

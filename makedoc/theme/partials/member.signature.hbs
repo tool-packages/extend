@@ -1,0 +1,44 @@
+{{{signatureTitle}}}
+
+{{> comment}}
+
+{{#if typeParameters}}
+
+<h4>类型参数:</h4>
+{{!-- ### 类型参数: --}}
+
+{{#with typeParameters}}
+
+{{{parameterTable 'typeParameters'}}}
+
+{{/with}}
+
+{{/if}}
+
+{{#if parameters}}
+
+<h4>参数:</h4>
+{{!-- ### 参数: --}}
+
+{{#with parameters}}
+
+{{{parameterTable 'parameters'}}}
+
+{{/with}}
+
+{{/if}}
+
+{{> comment.tags.other}}
+
+{{#if type}}
+
+<h4>返回:</h4>
+{{!-- ### 返回: --}}
+
+{{{returns}}}
+
+{{/if}}
+
+{{> comment.tags.example}}
+
+{{> member.sources}}

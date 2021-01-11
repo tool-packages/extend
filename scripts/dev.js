@@ -1,9 +1,9 @@
 /**
  * 在监视模式下运行汇总以进行开发
  * @example
- *  node ./script/dev.js <target> => 监听指定文件变化
- *  -f || --formats => 构建特定格式软件包
- *  -s || --sourcemap => 生成 sourcemap 文件
+ *  node ./script/dev.js <target> // 监听指定文件变化
+ *  -f || --formats // 构建特定格式软件包
+ *  -s || --sourcemap // 生成 sourcemap 文件
  */
 
 const path = require('path');

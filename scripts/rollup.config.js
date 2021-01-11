@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * 包的配置
  * BuildOptions {
@@ -21,20 +20,20 @@
  * }
  */
 
-const path = require('path');
-const chalk = require('chalk'); // node 终端样式库
-const typescript = require('typescript'); // typescript 模块
-const json = require('@rollup/plugin-json'); // 将 .json文件转换为 ES6 模块
-const alias = require('@rollup/plugin-alias'); // 定义别名
-const ts = require('rollup-plugin-typescript2'); // 编译 typescript
-const commonjs = require('@rollup/plugin-commonjs'); // 将 CommonJS 模块转换为 ES6
-const builtins = require('rollup-plugin-node-builtins'); // 允许 required / imported 内置节点
-const globals = require('rollup-plugin-node-globals'); // 插入节点全局变量，包括插件
-const replace = require('@rollup/plugin-replace'); // 在捆绑时替换文件中的字符串
-const { nodeResolve } = require('@rollup/plugin-node-resolve'); // 解析 node_modules 中的模块
-const { babel } = require('@rollup/plugin-babel'); // babel 插件
-const { eslint } = require('rollup-plugin-eslint'); // eslint 插件
-const { terser } = require('rollup-plugin-terser'); // js 压缩插件
+import path from 'path';
+import chalk from 'chalk'; // node 终端样式库
+import json from '@rollup/plugin-json'; // 将 .json文件转换为 ES6 模块
+import alias from '@rollup/plugin-alias'; // 定义别名
+import commonjs from '@rollup/plugin-commonjs'; // 将 CommonJS 模块转换为 ES6
+import replace from '@rollup/plugin-replace'; // 在捆绑时替换文件中的字符串
+import { nodeResolve } from '@rollup/plugin-node-resolve'; // 解析 node_modules 中的模块
+import { babel } from '@rollup/plugin-babel'; // babel 插件
+import typescript from 'typescript'; // typescript 模块
+import ts from 'rollup-plugin-typescript2'; // 编译 typescript
+import builtins from 'rollup-plugin-node-builtins'; // 允许 required / imported 内置节点
+import globals from 'rollup-plugin-node-globals'; // 插入节点全局变量，包括插件
+import { eslint } from 'rollup-plugin-eslint'; // eslint 插件
+import { terser } from 'rollup-plugin-terser'; // js 压缩插件
 
 if (!process.env.TARGET) throw new Error('必须通过 --environment TARGET 指定目标包');
 
@@ -45,7 +44,7 @@ const pkgName = generatePkgName(process.env.TARGET);
 const name = formatPkgName(pkgName); // 包名
 const packageDir = resolveTarget(process.env.TARGET); // 目标包位置
 const resolve = (p) => path.resolve(packageDir, p); // 取到包内的文件路径
-const pkg = require(resolve(`package.json`)); // 包的 package.json 文件
+const pkg = require(resolve('./package.json')); // 包的 package.json 文件
 // 包的配置
 const packageOptions = pkg.buildOptions || {};
 
@@ -82,7 +81,7 @@ const packageFormats = inlineFormats || packageOptions.formats || defaultFormats
 
 // 创建包的配置集
 const packageConfigs = process.env.PROD_ONLY ? [] : packageFormats.map((format) => createConfig(format, outputConfigs[format]));
-console.log(process.env.PROD_ONLY, 122222222222);
+
 // 如果是生产环境下，再创建压缩包
 if (process.env.NODE_ENV === 'production') {
   packageFormats.forEach((format) => {
@@ -95,12 +94,12 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-module.exports = packageConfigs;
+export default packageConfigs;
 
 /**
  * 创建配置
  * @param { string } format 包的构建类型
- * @param {*} output 输出配置
+ * @param { * } output 输出配置
  * @param { any[] } plugins 插件
  */
 function createConfig(format, output, plugins = []) {
@@ -118,10 +117,11 @@ function createConfig(format, output, plugins = []) {
   const isGlobalBuild = /global/.test(format); // 浏览器包
 
   // 输出配置
-  output.exports = packageOptions.exports; // 使用什么导出模式
-  output.globals = packageOptions.globals; // 全局模块
+  output.exports = packageOptions.exports || 'named'; // 使用什么导出模式
+  output.globals = packageOptions.globals || {}; // 全局模块
   output.sourcemap = !!process.env.SOURCE_MAP; // 是否生成 sourcemap 文件
   output.externalLiveBindings = false; // 不生成支持实时绑定的代码
+
   // 生成包的名称（全局变量名）
   if (isGlobalBuild) output.name = packageOptions.name;
 
@@ -170,16 +170,19 @@ function createConfig(format, output, plugins = []) {
           })
         ]
       : [];
-  const external =
+  const defaultExternal =
     isGlobalBuild || isBrowserESMBuild
       ? packageOptions.enableNonBrowserBranches
         ? []
         : ['source-map', '@babel/parser', 'estree-walker']
       : [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
 
+  const entryFile = packageOptions.entryFile || 'src/index.ts'; // 入口文件
+  const externals = packageOptions.external || defaultExternal; // 外链
+
   return {
-    input: resolve(packageOptions.entryFile),
-    external, // 外链
+    input: resolve(entryFile),
+    external: externals, // 外链
     plugins: [
       json({
         namedExports: false // 不要为JSON对象的每个属性生成命名导出

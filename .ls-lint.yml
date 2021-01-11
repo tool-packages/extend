@@ -12,10 +12,8 @@
 ls:
   packages:
     .dir: kebabcase | lowercase
-    .d.ts: camelCase | PascalCase
 
   packages/*/{src,__tests__}:
-    .dir: camelCase | PascalCase
     .js: camelCase | PascalCase
     .ts: camelCase | PascalCase
     .d.ts: camelCase | PascalCase

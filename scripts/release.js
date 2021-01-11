@@ -5,12 +5,12 @@
  *  npm install -g yrm
  *  npm install -g nrm
  * @example
- *  ts-node ./script/release.js => 自动发布 packages 下的可用包
- *  --tag => 发行标签
- *  --preid => 预发行版本标识符
- *  --dry => 只打印运行命令但不运行(会更新版本)
- *  --skipTests => 跳过测试
- *  --skipBuild => 跳过打包
+ *  ts-node ./script/release.js // 自动发布 packages 下的可用包
+ *  --tag // 发行标签
+ *  --preid // 预发行版本标识符
+ *  --dry // 只打印运行命令但不运行(会更新版本)
+ *  --skipTests // 跳过测试
+ *  --skipBuild // 跳过打包
  */
 
 const path = require('path');
@@ -41,6 +41,7 @@ const skippedPackages = []; // 需要跳过发布的包
  * @param { any } bin - 执行命令
  * @param { any } args - 命令参数
  * @param { object } opts - 命令选项
+ * @returns { Promise<any> }
  */
 const run = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...opts });
 
@@ -49,6 +50,7 @@ const run = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...op
  * @param { any } bin - 执行命令
  * @param { any } args - 命令参数
  * @param { object } opts - 命令选项
+ * @returns { any }
  */
 const dryRun = (bin, args, opts = {}) => console.log(chalk.blue(`[dryrun] ${bin} ${args.join(' ')}`), opts);
 
