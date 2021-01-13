@@ -1,0 +1,36 @@
+{{#if implementationOf}}
+
+Implementation of: {{#with implementationOf}}{{typeAndParent}}{{/with}}
+
+{{/if}}
+
+{{#if inheritedFrom}}
+
+Inherited from: {{#with inheritedFrom}}{{{typeAndParent}}}{{/with}}
+
+{{/if}}
+
+{{#if overwrites}}
+
+Overrides: {{#with overwrites}}{{typeAndParent}}{{/with}}
+
+{{/if}}
+
+{{#if sources}}
+
+{{#each sources}}
+
+{{#if url}}
+
+> 定义于: [{{fileName}}:{{line}}]({{url}})
+
+{{else}}
+
+{{!-- Defined in: {{fileName}}:{{line}} --}}
+> 定义于: {{fileName}}:{{line}}
+
+{{/if}}
+
+{{/each}}
+
+{{/if}}

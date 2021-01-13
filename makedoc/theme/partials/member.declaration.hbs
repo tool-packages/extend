@@ -1,0 +1,48 @@
+{{> comment}}
+
+{{{declarationTitle}}}
+
+{{#if typeParameters}}
+
+<h4>类型参数:</h4>
+{{!-- #### Type parameters: --}}
+
+{{#with typeParameters}}
+
+{{{parameterTable 'typeParameters'}}}
+
+{{/with}}
+
+{{/if}}
+
+{{#if type.declaration}}
+
+{{#if type.declaration.children}}
+
+<h4>类型说明:</h4>
+{{!-- #### Type declaration: --}}
+
+{{#with type.declaration.children}}
+
+{{{propertyTable ../kind}}}
+
+{{/with}}
+
+{{/if}}
+
+{{/if}}
+
+{{#ifCond kindString '==' 'Object literal'}}
+
+<h4>属性:</h4>
+{{!-- #### Properties: --}}
+
+{{#with children}}
+
+{{{propertyTable ../kind}}}
+
+{{/with}}
+
+{{/ifCond }}
+
+{{> member.sources}}

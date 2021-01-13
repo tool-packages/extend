@@ -1,0 +1,43 @@
+{
+  "name": "@roshin/extend-validator",
+  "version": "0.0.1",
+  "description": "extend-validator",
+  "main": "index.js",
+  "module": "dist/extend-validator.esm-bundler.js",
+  "types": "dist/extend-validator.d.ts",
+  "license": "MIT",
+  "buildOptions": {
+    "name": "extendValidator",
+    "formats": [
+      "esm-bundler",
+      "esm-browser",
+      "cjs",
+      "global"
+    ]
+  },
+  "unpkg": "dist/extend-validator.global.js",
+  "jsdelivr": "dist/extend-validator.global.js",
+  "sideEffects": false,
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "keywords": [
+    "typescript",
+    "javascript",
+    "roshin",
+    "extend-validator"
+  ],
+  "author": {
+    "name": "Roshin",
+    "email": "1425258785@qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tool-packages/extend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tool-packages/extend/issues"
+  },
+  "homepage": "https://g.extend.roshin.cn"
+}

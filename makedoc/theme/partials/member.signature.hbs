@@ -1,0 +1,51 @@
+{{> comment}}
+
+{{{signatureTitle}}}
+
+{{#if typeParameters}}
+
+<h4>类型参数:</h4>
+{{!-- #### Type parameters: --}}
+
+{{#with typeParameters}}
+
+{{{parameterTable 'typeParameters'}}}
+
+{{/with}}
+
+{{/if}}
+
+{{#if parameters}}
+
+<h4>参数:</h4>
+{{!-- #### Parameters: --}}
+
+{{#with parameters}}
+
+{{{parameterTable 'parameters'}}}
+
+{{/with}}
+
+{{/if}}
+
+{{#with comment}}
+
+{{#if hasVisibleComponent}}
+
+{{{commentTags}}}
+
+{{/if}}
+
+{{/with}}
+
+{{#if type}}
+
+<h4>返回:</h4>
+
+{{{returns}}}
+
+{{/if}}
+
+{{{example}}}
+
+{{> member.sources}}
