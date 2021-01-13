@@ -62,9 +62,9 @@ async function makeDocs(_target) {
     includes: resolveTarget(_target), // 包含文件
     exclude: ['**/*.test.ts', '**/*/__test__', '**/*/dist', '**/*/index.ts'], // 排除的文件
     disableOutputCheck: false, // 禁用检查和清除指定的输出目录
-    categorizeByGroup: false, // 进行分类，默认为true
+    categorizeByGroup: false, // 进行分类，默认为 true
     hideGenerator: true, // 隐藏页底的全局链接
-    // disableSources: false, // 禁用在文本中定义的描述创建反射的位置
+    disableSources: false, // 禁用当前代码所定义的路径
     media: '', // 包含媒体
     excludeTags: [], // 忽略的标签
     readme: '', // 应在索引页面上显示的自述文件的路径, 通过 none 以禁用索引页面并在 globals 页面上启动文档
@@ -84,7 +84,7 @@ async function makeDocs(_target) {
   if (!project) process.exit(1);
 
   await app.generateDocs(project, dest(_target));
-  // await app.generateJson(project, resolveRoot(`docs/${_target}.json`));
+  await app.generateJson(project, resolveRoot(`docs/${_target}.json`));
 }
 
 /**

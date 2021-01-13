@@ -9,7 +9,7 @@ import { type } from './type';
 export function declarationTitle(this: ParameterReflection | DeclarationReflection): string {
   const md: string[] = ['``` ts\n'];
   if (this.flags && this.flags.length > 0 && !this.flags.isRest) {
-    md.push(this.flags.map((flag) => `${flag.toLowerCase()} `).join(' '));
+    md.push(this.flags.map((flag) => `${flag.toLowerCase()}`).join(' '));
   }
   md.push(`${this.flags.isRest ? '... ' : ''} ${escape(this.name)}`);
   if (this instanceof DeclarationReflection && this.typeParameters) {

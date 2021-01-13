@@ -113,16 +113,16 @@ export function type(
 
 function getLiteralType(model: LiteralType) {
   if (typeof model.value === 'bigint') {
-    return `*${model.value}n*`;
+    return `${model.value}n`;
   }
-  return `*${model.value}*`;
+  return `${model.value}`;
 }
 
 function getReflectionType(model: DeclarationReflection, collapse: boolean) {
   if (model.signatures) {
-    return collapse ? '*function*' : getFunctionType(model.signatures);
+    return collapse ? 'function' : getFunctionType(model.signatures);
   }
-  return collapse ? '*object*' : getDeclarationType(model);
+  return collapse ? 'object' : getDeclarationType(model);
 }
 
 function getDeclarationType(model: DeclarationReflection) {
@@ -207,7 +207,7 @@ function getTypeOperatorType(model: TypeOperatorType) {
 }
 
 function getQueryType(model: QueryType) {
-  return `*typeof* ${type.call(model.queryType)}`;
+  return `typeof ${type.call(model.queryType)}`;
 }
 
 function getTypeParameterType(model: TypeParameterType) {
@@ -215,7 +215,7 @@ function getTypeParameterType(model: TypeParameterType) {
 }
 
 function getInferredType(model: InferredType) {
-  return `*infer* ${escape(model.name)}`;
+  return `infer ${escape(model.name)}`;
 }
 
 function getUnknownType(model: UnknownType) {
