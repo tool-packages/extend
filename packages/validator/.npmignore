@@ -1,6 +1,0 @@
-# 不上传给npm的文件
-node_modules/
-src/
-__tests__/
-
-api-extractor.json
