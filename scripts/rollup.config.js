@@ -150,10 +150,7 @@ function createConfig(format, output, plugins = []) {
     packageOptions.enableNonBrowserBranches && !isNodeBuild
       ? [
           nodeResolve({
-            // 将自定义选项传递给解析插件
-            customResolveOptions: {
-              moduleDirectory: 'node_modules'
-            },
+            moduleDirectories: ['node_modules'], // 在其中一个或多个目录中递归地查找模块
             extensions: ['.js', '.ts'], // 支持的后缀
             preferBuiltins: true // 首选内置模块
           }),
@@ -161,15 +158,21 @@ function createConfig(format, output, plugins = []) {
             sourceMap: false // 不生成 CommonJS 模块的 sourceMap
           }),
           builtins(),
-          globals(),
-          babel({
-            configFile: resolveRoot('./babel.config.js'),
-            exclude: 'node_modules/**', // 忽略掉 node_modules 内的
-            extensions: ['.js', '.ts'], // 支持的文件扩展名数组, babel 默认不支持 ts 需要手动添加
-            babelHelpers: 'runtime'
-          })
+          globals()
         ]
       : [];
+
+  if (isGlobalBuild || isBrowserESMBuild) {
+    nodePlugins.push(
+      babel({
+        configFile: resolveRoot('./babel.config.js'),
+        exclude: 'node_modules/**', // 忽略掉 node_modules 内的
+        extensions: ['.js', '.ts'], // 支持的文件扩展名数组, babel 默认不支持 ts 需要手动添加
+        babelHelpers: 'runtime'
+      })
+    );
+  }
+
   const defaultExternal =
     isGlobalBuild || isBrowserESMBuild
       ? packageOptions.enableNonBrowserBranches

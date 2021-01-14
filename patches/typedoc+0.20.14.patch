@@ -1,0 +1,37 @@
+diff --git a/node_modules/typedoc/dist/lib/converter/convert-expression.js b/node_modules/typedoc/dist/lib/converter/convert-expression.js
+index e626d03..2e50d1b 100644
+--- a/node_modules/typedoc/dist/lib/converter/convert-expression.js
++++ b/node_modules/typedoc/dist/lib/converter/convert-expression.js
+@@ -20,17 +20,28 @@ function convertDefaultValue(node) {
+ exports.convertDefaultValue = convertDefaultValue;
+ function convertExpression(expression) {
+     switch (expression.kind) {
++        // case ts.SyntaxKind.StringLiteral:
++        // case ts.SyntaxKind.TrueKeyword:
++        // case ts.SyntaxKind.FalseKeyword:
++        // case ts.SyntaxKind.NullKeyword:
++        // case ts.SyntaxKind.NumericLiteral:
++        // case ts.SyntaxKind.PrefixUnaryExpression:
++        //     return expression.getText();
+         case ts.SyntaxKind.StringLiteral:
++            return '"' + expression.text + '"';
++        case ts.SyntaxKind.NumericLiteral:
++            return expression.text;
+         case ts.SyntaxKind.TrueKeyword:
++            return "true";
+         case ts.SyntaxKind.FalseKeyword:
++            return "false";
+         case ts.SyntaxKind.NullKeyword:
+-        case ts.SyntaxKind.NumericLiteral:
+-        case ts.SyntaxKind.PrefixUnaryExpression:
+-            return expression.getText();
++            return "null";
+         default:
+             // More complex expressions are generally not useful in the documentation.
+             // Show that there was a value, but not specifics.
+-            return "...";
++            // return "...";
++            return expression.getText(expression.getSourceFile());
+     }
+ }
+ exports.convertExpression = convertExpression;

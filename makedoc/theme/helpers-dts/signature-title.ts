@@ -10,11 +10,11 @@ export function signatureTitle(this: SignatureReflection): string {
   }
 
   if (this.name === '__get' && this.parent) {
-    md.push(`get ${this.parent.name}`);
+    md.push(`get ${this.parent.name}: `);
   } else if (this.name === '__set' && this.parent) {
-    md.push(`set ${this.parent.name}`);
+    md.push(`set ${this.parent.name}: `);
   } else if (this.name !== '__call') {
-    md.push(`${this.name}`);
+    md.push(`${this.name}: `);
   }
 
   if (this.typeParameters) {

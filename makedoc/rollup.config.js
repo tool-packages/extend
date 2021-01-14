@@ -36,7 +36,12 @@ files.forEach((filepath) => {
   // if (!filepath.endsWith('.ts')) {
   //   return fse.copySync(resloveEntry(filepath), resloveOut(filepath));
   // }
-  const file_name = filepath.replace(/\.ts$/, '').replace(/-dts/g, '');
+  // const file_name = filepath.replace(/\.ts$/, '').replace(/-dts/g, '');
+  let file_name = filepath.replace(/\.ts$/, '');
+  if (/-dts(\/|\\|\\\\|\/\/)/g.test(file_name)) {
+    fse.removeSync(file_name.replace(/-dts(\/|\\|\\\\|\/\/).*/g, ''));
+    file_name = file_name.replace(/-dts(\/|\\|\\\\|\/\/)/g, '$1');
+  }
   configure.push({
     input: resloveEntry(`${filepath}`),
     external: () => true,
