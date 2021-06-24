@@ -1,8 +1,20 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "resolveJsonModule": true
   },
-  "include": ["**/*.ts", "**/*.js", "./.eslintrc.js", "./.cz-config.js"],
+  "include": [
+    "**/*.ts",
+    "**/*.js",
+    "**/*.tsx",
+    "**/*.jsx",
+    "./.eslintrc.js",
+    "./.stylelintrc.js",
+    "./.cz-config.js",
+    "./.prettierrc.js",
+    "./.commitlintrc.js",
+    "**/*.html"
+  ],
   "exclude": []
 }

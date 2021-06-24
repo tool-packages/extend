@@ -9,3 +9,5 @@
 **/makedoc/theme/*.js
 !.eslintrc.js
 !.cz-config.js
+!.commitlintrc.js
+!.prettierrc.js
